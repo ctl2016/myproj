@@ -1,30 +1,31 @@
 {
-  "name": "testapp",
-  "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/ctl2016/myproj/issues"
+  },
   "dependencies": {
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babelify": "^7.3.0",
-    "babel-preset-es2015": "^6.24.1",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "source-map-support": "^0.4.15"
   },
+  "description": "testapp",
   "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "homepage": "https://github.com/ctl2016/myproj#readme",
+  "keywords": [
+    ""
+  ],
+  "license": "ISC",
+  "main": "main.js",
+  "name": "testapp",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ctl2016/myproj.git"
   },
-  "keywords": [
-    ""
-  ],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ctl2016/myproj/issues"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/ctl2016/myproj#readme"
+  "version": "1.0.0"
 }

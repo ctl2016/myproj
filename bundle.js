@@ -185,15 +185,103 @@ process.chdir = function (dir) {
 process.umask = function() { return 0; };
 
 },{}],2:[function(require,module,exports){
-// main.js
-var React = require('react');
-var ReactDOM = require('react-dom');
+'use strict';
 
-ReactDOM.render(React.createElement(
-  'h1',
-  null,
-  'Hello, world !'
-), document.getElementById('example'));
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // main.js
+
+var Main = function (_Component) {
+	_inherits(Main, _Component);
+
+	function Main(props) {
+		_classCallCheck(this, Main);
+
+		var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
+
+		_this.state = {
+			date: "Time now : "
+		};
+
+		_this.timeId = null;
+		return _this;
+	}
+
+	_createClass(Main, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			this.hello();
+		}
+	}, {
+		key: 'componentWillUnmount',
+		value: function componentWillUnmount() {
+			clearInterval(this.timeId);
+		}
+	}, {
+		key: 'sleep',
+		value: function sleep(time) {
+			return new Promise(function (resolve, reject) {
+				setTimeout(function () {
+					resolve();
+				}, time);
+			});
+		}
+	}, {
+		key: 'hello',
+		value: async function hello() {
+			var _this2 = this;
+
+			await this.sleep(2000);
+
+			this.setState({ date: new Date().toLocaleTimeString() });
+
+			await this.sleep(5000);
+
+			this.setState({ date: new Date().toLocaleTimeString() });
+
+			this.timeId = setInterval(function () {
+				_this2.setState({ date: new Date().toLocaleTimeString() });
+			}, 1000);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+
+			return _react2.default.createElement(
+				'div',
+				null,
+				' Now Time : ',
+				this.state.date,
+				' '
+			);
+		}
+	}]);
+
+	return Main;
+}(_react.Component);
+
+exports.default = Main;
+
+
+_reactDom2.default.render(_react2.default.createElement(Main, null), document.getElementById('example'));
 
 },{"react":182,"react-dom":31}],3:[function(require,module,exports){
 (function (process){
