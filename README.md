@@ -11,3 +11,5 @@ browserify -t [ babelify ] main.js -o bundle.js
 npm install -g browserify watchify
 
 watchify -t [ babelify ] main.js -o bundle.js
+
+watchify -t browserify-css -t babelify main.js -o bundle.js

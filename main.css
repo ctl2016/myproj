@@ -1,0 +1,12 @@
+@import url("./node_modules/react-grid-layout/css/styles.css");
+@import url("./node_modules/react-resizable/css/styles.css");
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css");
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css");
+
+body {
+    background-color: #fff;
+}
+
+.layout {
+    background-color: rgba(100, 50, 40, 0.5);
+}
