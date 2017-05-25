@@ -7,11 +7,11 @@ import ReactGridLayout from 'react-grid-layout';
 import {Responsive, WidthProvider} from 'react-grid-layout';
 //import Button from 'react-bootstrap/lib/Button';
 // or
-import { Button } from 'react-bootstrap';
+import { ButtonToolbar, Button, DropdownButton, SplitButton, MenuItem } from 'react-bootstrap';
+
+require('./css/main.css');
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
-
-require('./main.css');
 
 class Main extends Component {
 
@@ -58,19 +58,19 @@ class Main extends Component {
 
 	onBreakpointChange(b) {
 
-		console.log('onBreakpointChange', b);
+		//console.log('onBreakpointChange', b);
 	}
 
 	onLayoutChange(layout, layouts) {
-		console.log('onLayoutChange', layout, layouts);
+		//console.log('onLayoutChange', layout, layouts);
 	}
 
 	render() {
 
 		var layoutLG = [
 			{i: 'a', x: 0, y: 0, w: 1, h: 2, static: true},
-			{i: 'b', x: 1, y: 0, w: 1, h: 2, minW: 1, maxW: 3},
-			{i: 'c', x: 2, y: 0, w: 1, h: 2}
+			{i: 'b', x: 1, y: 0, w: 1, h: 2, minW: 1, maxW: 3, isResizable: false, isDraggable: true},
+			{i: 'c', x: 2, y: 0, w: 5, h: 2, isResizable: true, isDraggable: false}
 		];
 
 		var layoutMD = [
@@ -99,6 +99,8 @@ class Main extends Component {
 
 		var layouts = {lg: layoutLG, md: layoutMD, sm: layoutSM, xs: layoutXS, xxs: layoutXXS};
 
+		var btnStyle = {/*outline: "none"*/};
+
 		return (
 			<div>
 				<ResponsiveReactGridLayout
@@ -111,8 +113,10 @@ class Main extends Component {
 					onLayoutChange={this.onLayoutChange}
 					measureBeforeMount={true}
 					useCSSTransforms={true}
-					isResizable={false}
+					isResizable={true}
 					margin={[10,10]}
+					containerPadding={[5, 5]}
+					verticalCompact={true}
 					>
 					<div className="layout" key={'a'}> aaaa </div>
 					<div className="layout" key={'b'}> bbbb </div>
@@ -124,10 +128,25 @@ class Main extends Component {
 					layout={layoutLG} 
 					cols={12} 
 					rowHeight={30} 
-					width={1200}>
+					width={1200}
+					containerPadding={[5, 5]}
+					>
 					<div className="layout" key={'a'}>b</div>
 					<div className="layout" key={'b'}>c</div>
-					<div className="layout" key={'c'}> Now Time : {this.state.date} <Button/></div>
+					<div className="layout" key={'c'}> Now Time : {this.state.date} 
+						<ButtonToolbar>
+							<Button style={btnStyle} bsStyle="primary" bsSize="small">Primary</Button>
+							<Button style={btnStyle} bsStyle="primary" bsSize="small" disabled>Primary2</Button>
+							<DropdownButton style={btnStyle} bsStyle="primary" bsSize="small" title="Dropdown" id="bg-nested-dropdown">
+								<MenuItem eventKey="1">Dropdown link</MenuItem>
+								<MenuItem eventKey="2">Dropdown link</MenuItem>
+							</DropdownButton>
+							<SplitButton style={btnStyle} bsStyle="primary" bsSize="small" title="SplitButton" id="bg-nested-dropdown">
+								<MenuItem eventKey="1">Dropdown link</MenuItem>
+								<MenuItem eventKey="2">Dropdown link</MenuItem>
+							</SplitButton>
+						</ButtonToolbar>
+					</div>
 				</ReactGridLayout>
 			</div>
 		);
