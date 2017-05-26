@@ -22,6 +22,7 @@ class Main extends Component {
 		};
 
 		this.timeId = null;
+		this.layout = null;
 	}
 
 	componentDidMount() {
@@ -62,7 +63,36 @@ class Main extends Component {
 	}
 
 	onLayoutChange(layout, layouts) {
-		//console.log('onLayoutChange', layout, layouts);
+		console.log('onLayoutChange', layout, layouts, 'this.layout ', this.layout );
+		this.layout = Object.assign({}, layout, {});
+	}
+
+	onResize(layout/*: Layout*/, oldItem/*: LayoutItem*/, newItem/*: LayoutItem*/, placeholder/*: LayoutItem*/, e/*: MouseEvent*/, element/*: HTMLElement*/) {
+		//this.layout = Object.assign({}, layout, {});
+		//console.log('onResize', 'layout:', layout, 'oldItem:', oldItem, 'newItem:', newItem, 'placeholder:', placeholder, 'e:', e, 'element:', element);
+		//element.innerHTML = 'onResize: [' + newItem.x + ', ' + newItem.y + ']';
+	}
+
+	onResizeStop(layout/*: Layout*/, oldItem/*: LayoutItem*/, newItem/*: LayoutItem*/, placeholder/*: LayoutItem*/, e/*: MouseEvent*/, element/*: HTMLElement*/) {
+		//this.layout = Object.assign({}, layout, {});
+		//console.log('onResizeStop', 'layout:', layout, 'oldItem:', oldItem, 'newItem:', newItem, 'placeholder:', placeholder, 'e:', e, 'element:', element);
+		//element.innerHTML = 'onResizeStop: [' + newItem.x + ', ' + newItem.y + ']';
+	}
+
+	onDragStart(layout/*: Layout*/, oldItem/*: LayoutItem*/, newItem/*: LayoutItem*/, placeholder/*: LayoutItem*/, e/*: MouseEvent*/, element/*: HTMLElement*/) {
+		this.layout = Object.assign({}, layout, {});
+		//console.log('onDragStart', 'layout:', layout, 'oldItem:', oldItem, 'newItem:', newItem, 'placeholder:', placeholder, 'e:', e, 'element:', element);
+		element.innerHTML = 'start: [' + oldItem.x + ', ' + oldItem.y + ']';
+	}
+
+	onDragStop(layout/*: Layout*/, oldItem/*: LayoutItem*/, newItem/*: LayoutItem*/, placeholder/*: LayoutItem*/, e/*: MouseEvent*/, element/*: HTMLElement*/) {
+		//console.log('onDragStop', 'layout:', layout, 'oldItem:', oldItem, 'newItem:', newItem, 'placeholder:', placeholder, 'e:', e, 'element:', element);
+		element.innerHTML = 'stop: [' + newItem.x + ', ' + newItem.y + ']';
+	}
+
+	onDrag(layout/*: Layout*/, oldItem/*: LayoutItem*/, newItem/*: LayoutItem*/, placeholder/*: LayoutItem*/, e/*: MouseEvent*/, element/*: HTMLElement*/) {
+		//console.log('onDrag', 'layout:', layout, 'oldItem:', oldItem, 'newItem:', newItem, 'placeholder:', placeholder, 'e:', e, 'element:', element);
+		element.innerHTML = 'drag: [' + placeholder.x + ', ' + placeholder.y + ']';
 	}
 
 	render() {
@@ -99,49 +129,53 @@ class Main extends Component {
 
 		var layouts = {lg: layoutLG, md: layoutMD, sm: layoutSM, xs: layoutXS, xxs: layoutXXS};
 
-		var btnStyle = {/*outline: "none"*/};
-
 		return (
 			<div>
 				<ResponsiveReactGridLayout
-			        className="layout"
+					ref="respLayout"
+			        className="wnd-border"
 					breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
 					cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 1}}
 					rowHeight={30}
 					layouts={layouts}
-					onBreakpointChange={this.onBreakpointChange}
-					onLayoutChange={this.onLayoutChange}
 					measureBeforeMount={true}
 					useCSSTransforms={true}
 					isResizable={true}
 					margin={[10,10]}
 					containerPadding={[5, 5]}
 					verticalCompact={true}
+					onBreakpointChange={(layout, oldItem, newItem, placeholder, e, element) => this.onBreakpointChange(layout, oldItem, newItem, placeholder, e, element)}
+					onLayoutChange={(layout, oldItem, newItem, placeholder, e, element) => this.onLayoutChange(layout, oldItem, newItem, placeholder, e, element)}
+					onDragStart={(layout, oldItem, newItem, placeholder, e, element) => this.onDragStart(layout, oldItem, newItem, placeholder, e, element)}
+					onDragStop={(layout, oldItem, newItem, placeholder, e, element) => this.onDragStop(layout, oldItem, newItem, placeholder, e, element)}
+					onDrag={(layout, oldItem, newItem, placeholder, e, element) => this.onDrag(layout, oldItem, newItem, placeholder, e, element)}
+					onResize={(layout, oldItem, newItem, placeholder, e, element) => this.onResize(layout, oldItem, newItem, placeholder, e, element)}
+					onResizeStop={(layout, oldItem, newItem, placeholder, e, element) => this.onResizeStop(layout, oldItem, newItem, placeholder, e, element)}
 					>
-					<div className="layout" key={'a'}> aaaa </div>
-					<div className="layout" key={'b'}> bbbb </div>
-					<div className="layout" key={'c'}> cccc </div>
+					<div className="wnd-border" key={'a'}> aaaa </div>
+					<div className="wnd-border" key={'b'}> bbbb </div>
+					<div className="wnd-border" key={'c'}> cccc </div>
 				</ResponsiveReactGridLayout>
 				<ReactGridLayout
 					style={{marginTop:"10px"}}
-					className="layout"
+					className="wnd-border"
 					layout={layoutLG} 
 					cols={12} 
 					rowHeight={30} 
 					width={1200}
 					containerPadding={[5, 5]}
 					>
-					<div className="layout" key={'a'}>b</div>
-					<div className="layout" key={'b'}>c</div>
-					<div className="layout" key={'c'}> Now Time : {this.state.date} 
+					<div className="wnd-border" key={'a'}>b</div>
+					<div className="wnd-border" key={'b'}>c</div>
+					<div className="wnd-border" key={'c'}> Now Time : {this.state.date} 
 						<ButtonToolbar>
-							<Button style={btnStyle} bsStyle="primary" bsSize="small">Primary</Button>
-							<Button style={btnStyle} bsStyle="primary" bsSize="small" disabled>Primary2</Button>
-							<DropdownButton style={btnStyle} bsStyle="primary" bsSize="small" title="Dropdown" id="bg-nested-dropdown">
+							<Button bsStyle="primary" bsSize="small">Primary</Button>
+							<Button bsStyle="primary" bsSize="small" disabled>Primary2</Button>
+							<DropdownButton bsStyle="primary" bsSize="small" title="Dropdown" id="bg-nested-dropdown">
 								<MenuItem eventKey="1">Dropdown link</MenuItem>
 								<MenuItem eventKey="2">Dropdown link</MenuItem>
 							</DropdownButton>
-							<SplitButton style={btnStyle} bsStyle="primary" bsSize="small" title="SplitButton" id="bg-nested-dropdown">
+							<SplitButton bsStyle="primary" bsSize="small" title="SplitButton" id="bg-nested-dropdown">
 								<MenuItem eventKey="1">Dropdown link</MenuItem>
 								<MenuItem eventKey="2">Dropdown link</MenuItem>
 							</SplitButton>
@@ -157,5 +191,5 @@ export default Main;
 
 ReactDOM.render(
 	<Main/>,
-	document.getElementById('example')
+	document.getElementById('mainDiv')
 );
